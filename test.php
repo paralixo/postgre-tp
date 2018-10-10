@@ -8,11 +8,6 @@ function connectDB() {
 function select($query) {
     $result = pg_query($query);
     $resultInArray = pg_fetch_all($result);
-    
-    if (!$resultInArray) {
-        return null;
-    }
-    
     return $resultInArray;
 }
 
@@ -20,7 +15,7 @@ function insert($table, $values) {
     $valuesLength = count($values);
     $query = "INSERT INTO {$table} VALUES(";
     foreach($values as $key=>$value) {
-        if (gettype($value) == "integer") {
+        if (gettype($value) == "integer" or gettype($value) == "double" or gettype($value) == "boolean") {
             $query = $query . "{$value}";
         } else if (gettype($value) == "string") {
             $query = $query . "'{$value}'";
@@ -39,16 +34,27 @@ function insert($table, $values) {
     }
 }
 
-echo "Test appel bdd: ";
-$db = connectDB();
-$result = select("SELECT * FROM test WHERE id = 3"); 
+array(
+    array($key, $operateur, $value),
+    array($key, $operateur, $value),
+    array($key, $operateur, $value)
+)
 
-echo $result;
+function delete($table, $conditions) {
+    $query = "DELETE FROM {$table} WHERE ";
+    foreach ($conditions as $condition) {
+        
+    }
+}
+
+$db = connectDB();
+$result = select("SELECT * FROM test WHERE id = 2"); 
 
 foreach($result as $row) {
     echo "<br>".$row['id']." ".$row['description'];
 }
 
-insert("test", array(2, "description bidon"));
-//$res = pg_insert($db, 'test')
+//insert("test", array(2, "description bidon"));
+
+
 ?>
