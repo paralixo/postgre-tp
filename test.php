@@ -34,27 +34,32 @@ function insert($table, $values) {
     }
 }
 
-array(
-    array($key, $operateur, $value),
-    array($key, $operateur, $value),
-    array($key, $operateur, $value)
-)
-
-function delete($table, $conditions) {
-    $query = "DELETE FROM {$table} WHERE ";
-    foreach ($conditions as $condition) {
-        
-    }
-}
-
 $db = connectDB();
-$result = select("SELECT * FROM test WHERE id = 2"); 
 
-foreach($result as $row) {
-    echo "<br>".$row['id']." ".$row['description'];
-}
+?>
 
-//insert("test", array(2, "description bidon"));
 
+<!--Sélection des produits pour page acceuil, pour les filtres il faut juste ajouter la clause where-->
+<?php $result = select("SELECT * FROM modele"); ?>
+<?php foreach($result as $row): ?>
+    <div>
+        <img height=190 width=335 src="Base de donnée photos/<?= $row['nom_image']; ?>">
+        <p><?= "{$row['nom']} => {$row['prix']}"; ?></p>
+    </div>
+<?php endforeach; ?>
+
+
+
+<!--Page produit-->
+<?php $result = select("SELECT * FROM article WHERE id_article = 2"); ?>
+<?php foreach($result as $row): ?>
+    <div>
+        <img height=190 width=335 src="Base de donnée photos/<?= $row['nom_image']; ?>">
+        <p><?= "{$row['nom']} => {$row['prix']}"; ?></p>
+    </div>
+<?php endforeach; ?>
+
+
+<?php
 
 ?>
