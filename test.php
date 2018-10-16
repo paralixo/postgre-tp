@@ -36,6 +36,23 @@ function insert($table, $values) {
 
 $db = connectDB();
 
+function getModeleInfo($selectResult) {
+    $id_couleur = intval($selectResult[0]['id_couleur']);
+    $id_marque = intval($selectResult[0]['id_marque']);
+    $id_categorie = intval($selectResult[0]['id_categorie']);
+    $id_genre = intval($selectResult[0]['id_genre']);
+    
+    $couleur = select("SELECT * FROM couleur WHERE id_couleur = {$id_couleur}")[0]['libelle']; 
+    $marque = select("SELECT * FROM marque WHERE id_marque = {$id_marque}")[0]['libelle']; 
+    $categorie = select("SELECT * FROM categorie WHERE id_categorie = {$id_categorie}")[0]['libelle']; 
+    $genre = select("SELECT * FROM genre WHERE id_genre = {$id_genre}")[0]['libelle'];
+
+    return array($couleur, $marque, $genre, $categorie);
+}
+
+$result = select("SELECT MAX(id_couleur) FROM couleur");
+var_dump($result);
+
 ?>
 
 
@@ -49,13 +66,21 @@ $db = connectDB();
 <?php endforeach; ?>
 
 
-
 <!--Page produit-->
-<?php $result = select("SELECT * FROM article WHERE id_article = 2"); ?>
+<?php 
+$result = select("SELECT * FROM modele WHERE id_modele = 2"); 
+list($couleur, $marque, $genre, $categorie) = getModeleInfo($result);
+?>
 <?php foreach($result as $row): ?>
     <div>
         <img height=190 width=335 src="Base de donnée photos/<?= $row['nom_image']; ?>">
-        <p><?= "{$row['nom']} => {$row['prix']}"; ?></p>
+        <p><?= "{$row['nom']} => {$row['prix']}"; ?>
+            <br>Couleur: <?= $couleur ?>
+            <br>Marque: <?= $marque ?>
+            <br>Genre: <?= $genre ?>
+            <br>Catégorie: <?= $categorie ?>
+            <button>Ajouter au panier</button>
+        </p>
     </div>
 <?php endforeach; ?>
 

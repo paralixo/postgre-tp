@@ -30,13 +30,13 @@ function insert($table, $values) {
 $db = connectDB();
 
 insert ("modele", array(1,"Nike Air Max 1 Blanche",129.00,"abc","NikeAirMax1Blanche.jpg",1,1,1,1));
-insert ("modele", array(2,"Nike Air Max 1 Bleue",129.00,"abc","NikeAirMax1Bleue.jpg",6,1,1,1));
-insert ("modele", array(3,"Nike Air Max 1 Grise",129.00,"abc","NikeAirMax1Grise.jpg",8,1,1,1));
-insert ("modele", array(4,"Adidas Stan Smith Blanche",129.00,"abc","AdidasStanSmithBlanche.jpg",1,1,2,1));
-insert ("modele", array(5,"Adidas Stan Smith Verte",129.00,"abc","AdidasStanSmithVerte.jpg",5,1,2,1));
-insert ("modele", array(6,"Bottes Uggs",129.00,"abc","BottesUggs.jpg",7,2,4,3));
+insert ("modele", array(2,"Nike Air Max 1 Bleue",129.00,"abc","NikeAirMax1Bleue.jpg",1,1,1,6));
+insert ("modele", array(3,"Nike Air Max 1 Grise",129.00,"abc","NikeAirMax1Grise.jpg",1,1,1,8));
+insert ("modele", array(4,"Adidas Stan Smith Blanche",129.00,"abc","AdidasStanSmithBlanche.jpg",1,2,1,1));
+insert ("modele", array(5,"Adidas Stan Smith Verte",129.00,"abc","AdidasStanSmithVerte.jpg",1,2,1,5));
+insert ("modele", array(6,"Bottes Uggs",129.00,"abc","BottesUggs.jpg",3,4,2,7));
 insert ("modele", array(7,"Nike Air Force 1 Low Blanche",129.00,"abc","NikeAirForce1LowBlanche.jpg",1,1,1,1));
-insert ("modele", array(8,"Dr. Martens Basse Noire",129.00,"abc","DrMartensBasseNoire.jpg",9,3,5,2));
+insert ("modele", array(8,"Dr. Martens Basse Noire",129.00,"abc","DrMartensBasseNoire.jpg",2,5,3,9));
 
 insert ("couleur", array(1,"Blanc"));
 insert ("couleur", array(2,"Jaune"));
