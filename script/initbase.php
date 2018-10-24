@@ -1,32 +1,6 @@
 <?php
 
-function connectDB() {
-    $db = pg_connect("host=localhost port=5432 dbname=appli_web user=appli_web password=appli_web");
-    return $db;
-}
-function insert($table, $values) {
-    $valuesLength = count($values);
-    $query = "INSERT INTO {$table} VALUES(";
-    foreach($values as $key=>$value) {
-        if (gettype($value) == "integer" or gettype($value) == "double" or gettype($value) == "boolean") {
-            $query = $query . "{$value}";
-        } else if (gettype($value) == "string") {
-            $query = $query . "'{$value}'";
-        }
-        
-        if ($key != $valuesLength-1) {
-            $query = $query . ',';
-        } else {
-            $query = $query . ')';
-        }
-    }
-    
-    $rslt = pg_query($query);
-    if (!$rslt) {
-      echo "Une erreur s'est produite !";
-    }
-}
-
+include("fonctionsBases");
 $db = connectDB();
 
 insert ("modele", array(1,"Nike Air Max 1 Blanche",129.00,"abc","NikeAirMax1Blanche.jpg",1,1,1,1));
