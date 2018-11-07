@@ -34,7 +34,7 @@
         <ul id="menu">
           <li class="selected"><a href="index.php">Home</a></li>
           <li><a href="login_signup.php">User</a></li>
-          <li><a href="page.html">A Page</a></li>
+          <li><a href="panier.php">Panier</a></li>
           <li><a href="another_page.html">Another Page</a></li>
           <li><a href="contact.html">Contact Us</a></li>
         </ul>
@@ -76,8 +76,22 @@
                     <br>Genre: <?= $genre ?>
                     <br>Catégorie: <?= $categorie ?>
                 </p>
-                <form method="POST" action="bidon" >
-                    <input type="button" name="Submit" value="Ajouter au panier" class="exclusive" />
+                <form name="achat" action="script/ajouterPanier.php" method="GET">
+                    <label for="pointure">Pointure : </label>
+                    <select id="pointure" name="pointure">
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                    </select>
+                    <input style="display:none;" value=<?= "$idModele" ?> name="idModele"/>
+                    <input type="submit" value="Ajouter au panier" />
                 </form> 
             </div>
           

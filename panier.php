@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Accueil - The Shoe</title>
+  <title>Panier - The Shoe</title>
   <meta name="description" content="website description" />
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -16,9 +16,15 @@
         include("script/fonctionsBases.php");
         $db = connectDB();
         session_start();
-    
-        // Récupere tout les modeles de la bdd
-        $result = select("SELECT * FROM modele"); 
+
+        if (isset($_SESSION)) {
+            if (!count($_SESSION) > 0) {
+                header('Location: ./login_signup.php');
+                exit();
+            }
+        }
+        $idUser = $_SESSION["id_user"];
+        $result = select("SELECT * FROM panier WHERE id_user = $idUser"); 
     ?>
     
     <div id="header">
@@ -48,32 +54,11 @@
     
     <div id="site_content">
         
-        <div class="sidebar">
-            <h2> Triez par: </h2>
-
-            <ul>
-              <li><a href="#">link 1</a></li>
-              <li><a href="#">link 2</a></li>
-              <li><a href="#">link 3</a></li>
-              <li><a href="#">link 4</a></li>
-            </ul>
-        </div>
-        
-        <div id="content">
-            
-            <?php foreach($result as $row): ?>
+        <?php foreach($result as $row): ?>
                 
-                <a href="article.php?id=<?= $row['id_modele'] ?>">
-                    <div class="article">
-                        <img class="image_article_index" src="img/article/<?= $row['nom_image']; ?>">
-                        <p> <?= $row['nom'] ;?><br>
-                            <?= $row['prix'];?></p>
-                    </div>
-                </a>
+                <p><?php var_dump($row) ?></p>
             
-            <?php endforeach; ?>
-            
-        </div>
+        <?php endforeach; ?>
 
     </div>
     

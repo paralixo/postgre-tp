@@ -28,7 +28,7 @@
             <ul id="menu">
               <li><a href="index.php">Home</a></li>
               <li class="selected"><a href="login_signup.php">User</a></li>
-              <li><a href="page.html">A Page</a></li>
+              <li><a href="panier.php">Panier</a></li>
               <li><a href="another_page.html">Another Page</a></li>
               <li><a href="contact.html">Contact Us</a></li>
             </ul>
