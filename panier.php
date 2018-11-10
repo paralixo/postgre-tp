@@ -35,9 +35,9 @@
         
         <div id="menubar">
             <ul id="menu">
-                <li class="selected"><a href="index.php">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="login_signup.php">User</a></li>
-                <li><a href="panier.php">Panier</a></li>
+                <li class="selected"><a href="panier.php">Panier</a></li>
                 <li><a href="another_page.html">Another Page</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
             </ul>
@@ -54,12 +54,67 @@
     
     <div id="site_content">
         
-        <?php foreach($result as $row): ?>
-                
-                <p><?php var_dump($row) ?></p>
-            
-        <?php endforeach; ?>
+        <?php
+        
+        // Query Builder
+        if ($result !== false) :
+            $whereQuery = ' WHERE ';
+            $articles = array();
+            foreach($result as $key => $row) {
+                $article = $row['id_article'];
+                if (!in_array($article, $articles)) {
+                    if ($key !== 0) {
+                        $whereQuery .= ' OR ';
+                    }
+                    array_push($articles, $article);
+                    $whereQuery .= 'id_article = ' . strval($article);
+                }
+            }
 
+            $query =  'SELECT id_article, article.id_modele, nom, pointure, prix, nom_image FROM article'; 
+            $query .= ' JOIN modele ON modele.id_modele = article.id_modele '; 
+            $query .= $whereQuery;
+            $articlesInfo = select($query);
+
+            $prixTotal = 0;
+            ?>
+
+            <ul>
+                <?php
+                // Affichage 
+                foreach($result as $key => $row): 
+
+                    foreach($articlesInfo as $articleInfo) {
+                        if ($row['id_article'] == $articleInfo['id_article']) {
+                            $infos = $articleInfo;
+                            break;
+                        }
+                    }
+
+                    $prixTotal += intval($infos['prix']);
+                ?>
+
+                    <li><img class="vignette_panier" src="img/article/<?= $infos['nom_image']; ?>">
+                        <?= $infos['nom'] . ' en ' . $infos['pointure'] . ' pour ' . $infos['prix'] . '€ ' ?>
+                        <form style="display: inline" name="suppr" action="script/deleteById.php" method="GET">
+                            <input type="hidden" name="id" value="<?= $infos['id_article'] ?>" />
+                            <input type="submit" value="Supprimer" />
+                        </form>
+                    </li>
+
+                <?php endforeach; ?>
+
+            </ul>
+            <p>Total: <?= $prixTotal ?>€</p>
+
+            <form name="payer" action="script/payer.php" method="POST">
+                <input type="submit" value="Payer" />
+            </form>
+        <?php
+        else:
+            echo 'Vous n\'avez pas d\'articles dans votre panier';
+        endif; ?>
+        
     </div>
     
     

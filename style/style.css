@@ -171,3 +171,12 @@ ul#menu li a:hover, ul#menu li.selected a, ul#menu li.selected a:hover
 { height: 0px;
   text-align: right;
   padding: 66px 16px 0px 300px;}
+
+
+/*panier*/
+.vignette_panier {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: 15px;
+}
